@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Educador del Siglo XXI: Ciudadanos Digitales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables y estilos base */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --transition: all 0.4s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Encabezado y navegación */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section con carrusel */
+        .hero-slider {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .slides {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-color: #2c3e50; /* Color de respaldo */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            z-index: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide-content {
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .pagination {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background-color: #fff;
+            transform: scale(1.3);
+        }
+
+        /* Secciones */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Sección 1: Tendencias con acordeón */
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+            transition: var(--transition);
+        }
+
+        .accordion-header:hover {
+            background-color: #e9ecef;
+        }
+
+        .accordion-header h3 {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+        .accordion-header h3 i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .accordion-content p {
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Sección 2: Innovación educativa con cartas giratorias */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background-color: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flip-card-front .card-img {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .flip-card-front .card-img i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .flip-card-front h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: rotateY(180deg);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            position: relative;
+        }
+
+        .flip-card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .flip-card-back h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .flip-card-back p {
+            position: relative;
+        }
+
+        .impact {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+        }
+
+        .impact strong {
+            color: var(--accent-color);
+        }
+
+        /* Sección 3: Adaptando la enseñanza */
+        .flow-chart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .flow-step {
+            width: 250px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .flow-step:hover {
+            transform: scale(1.05);
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .flow-step .step-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+
+        .flow-step h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Sección 4: Perfil docente con imagen y botones flotantes */
+        .profile-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 5rem 0;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+        }
+
+        .teacher-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .teacher-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .highlight-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .highlight-button:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+
+        .skill-bubble {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            /*flex-direction: column;*/
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+
+        .skill-bubble:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            animation: none;
+            background-color: white;
+        }
+
+        .skill-bubble i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            /*margin-bottom: 5px;*/
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .skill-bubble {
+                width: 45px;
+                height: 45px;
+            }
+    
+            .skill-bubble i {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skill-bubble {
+                width: 40px;
+                height: 40px;
+            }
+    
+            .skill-bubble i {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .skill-bubble {
+                width: 35px;
+                height: 35px;
+            }
+    
+            .skill-bubble i {
+                font-size: 1rem;
+            }
+        }
+
+        .skill-bubble span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .bubble-1 { top: 20%; left: 15%; }
+        .bubble-2 { top: 15%; right: 20%; }
+        .bubble-3 { bottom: 25%; left: 10%; }
+        .bubble-4 { bottom: 20%; right: 15%; }
+        .bubble-5 { top: 45%; left: 5%; }
+        .bubble-6 { top: 50%; right: 5%; }
+        .bubble-7 { bottom: 35%; left: 25%; }
+        .bubble-8 { bottom: 30%; right: 25%; }
+
+        /* Modales para las burbujas */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            animation: modalOpen 0.5s ease-out;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-content.closing {
+            animation: modalClose 0.5s ease-out forwards;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-header h3 i {
+            margin-right: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 25px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-body ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        /* Animación para modales */
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación para cerrar modales */
+        @keyframes modalClose {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+             to {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(52, 152, 219, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+
+        @keyframes highlight {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); box-shadow: 0 0 20px var(--accent-color); }
+            100% { transform: scale(1); }
+        }
+
+        /* Conclusión */
+        .conclusion {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .conclusion h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .conclusion p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Reflexión */
+        .reflection {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            box-shadow: var(--shadow);
+        }
+
+        .reflection h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .reflection-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .reflection-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 30px;
+            background-color: transparent;
+            color: var(--secondary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .reflection-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Compartir */
+        .share-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .facebook:hover { background-color: #3b5998; color: white; }
+        .twitter:hover { background-color: #1da1f2; color: white; }
+        .linkedin:hover { background-color: #0077b5; color: white; }
+        .whatsapp:hover { background-color: #25d366; color: white; }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .slide h1 {
+                font-size: 2.8rem;
+            }
+            
+            .slide p {
+                font-size: 1.3rem;
+            }
+            
+            .teacher-image {
+                height: 400px;
+            }
+            
+            .skill-bubble {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .skill-bubble i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                text-align: center;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+            }
+
+            .hero-slider {
+                height: 500px;
+            }
+            
+            .slide h1 {
+                font-size: 2.3rem;
+            }
+
+            .slide p {
+                font-size: 1.1rem;
+            }
+
+            .flow-step {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 30px;
+            }
+
+            .flow-step::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -35px;
+                transform: translateX(50%);
+            }
+
+            .flow-step:last-child::after {
+                display: none;
+            }
+
+            .teacher-image {
+                height: 350px;
+            }
+            
+            .skill-bubble {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .skill-bubble i {
+                font-size: 1.2rem;
+            }
+            
+            .skill-bubble span {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-slider {
+                height: 400px;
+            }
+            
+            .slide h1 {
+                font-size: 1.8rem;
+            }
+
+            .slide p {
+                font-size: 1rem;
+            }
+            
+            .teacher-image {
+                height: 300px;
+            }
+            
+            .highlight-button {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .skill-bubble {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .skill-bubble i {
+                font-size: 1rem;
+                margin-bottom: 0;
+            }
+            
+            .skill-bubble span {
+                display: none;
+            }
+        }
+
+               /* Sección de tendencias con collage */
+        .trend-collage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .trend-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .trend-card:hover {
+            transform: scale(1.05);
+        }
+
+        .trend-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .trend-card h3 {
+            padding: 15px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .lupa-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            animation: blink 1.5s infinite, pulseShadow 2s infinite;
+        }
+
+        .lupa-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+            animation: none; /* Detener animaciones al hacer hover */
+        }
+
+        .lupa-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Animación de parpadeo */
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* Animación de sombra pulsátil */
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4), 0 0 10px 2px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0), 0 0 20px 5px rgba(255, 0, 0, 0.2); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4), 0 0 10px 2px rgba(255, 0, 0, 0.3); }
+        }
+
+        /* Modales para tendencias */
+        .modal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        /* NUEVO FOOTER */
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-logo {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .footer-logo p {
+            color: #ddd;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .footer-links h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-contact ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+
+        .footer-contact i {
+            margin-right: 15px;
+            min-width: 25px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse-whatsapp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive para el footer */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-logo {
+                margin-bottom: 20px;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Educador Siglo XXI</span>
+            </a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#tendencias">Tendencias</a></li>
+                    <li><a href="#innovacion">Innovación</a></li>
+                    <li><a href="#adaptacion">Adaptación</a></li>
+                    <li><a href="#perfil">Perfil Docente</a></li>
+                    <li><a href="#conclusion">Conclusión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section con carrusel -->
+    <section class="hero-slider">
+        <div class="slides">
+         <!-- Slide 1: Principal -->
+            <div class="slide active" data-bg="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>El Educador del Siglo XXI</h1>
+                    <p>Forjando Ciudadanos Digitales Comprometidos</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        
+        <!-- Slide 2: Inteligencia Artificial -->
+            <div class="slide" data-bg="https://images.unsplash.com/photo-1677442135135-4e7f36f8c683?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>Inteligencia Artificial en Educación</h1>
+                    <p>Personalización del aprendizaje y herramientas adaptativas para cada estudiante</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        
+        <!-- Slide 3: Educación Híbrida -->
+            <div class="slide" data-bg="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>Educación Híbrida</h1>
+                    <p>Combinando lo mejor de la enseñanza presencial y virtual</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        
+        <!-- Slide 4: Aprendizaje Basado en Proyectos -->
+            <div class="slide" data-bg="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>Aprendizaje Basado en Proyectos</h1>
+                    <p>Desarrollo de habilidades prácticas a través de experiencias significativas</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        
+        <!-- Slide 5: Gamificación -->
+            <div class="slide" data-bg="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>Gamificación Educativa</h1>
+                    <p>Aumentando la motivación y compromiso mediante elementos de juego</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        
+        <!-- Slide 6: Microlearning y Realidad Virtual -->
+            <div class="slide" data-bg="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+                <div class="slide-content">
+                    <h1>Microlearning y Realidad Virtual</h1>
+                    <p>Píldoras de conocimiento y experiencias inmersivas para un aprendizaje efectivo</p>
+                    <a href="#tendencias" class="btn">Explorar Transformación</a>
+                </div>
+            </div>
+        </div>
+    
+    <!-- Paginación -->
+        <div class="pagination">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+            <div class="dot" data-slide="3"></div>
+            <div class="dot" data-slide="4"></div>
+            <div class="dot" data-slide="5"></div>
+        </div>
+    </section>
+
+    <!-- Sección 1: Tendencias con acordeón -->
+    <section id="tendencias">
+        <div class="container">
+            <div class="section-title">
+                <h2>Las Tendencias que Impulsan la Transformación Educativa</h2>
+            </div>
+            <div class="trend-collage">
+                <div class="trend-card" data-modal="modal-ai">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Inteligencia Artificial">
+                    <h3>Inteligencia Artificial y Aprendizaje Adaptativo</h3>
+                    <button class="lupa-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="trend-card" data-modal="modal-vr">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Realidad Virtual">
+                    <h3>Realidad Virtual y Aumentada</h3>
+                    <button class="lupa-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="trend-card" data-modal="modal-pbl">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Aprendizaje Basado en Proyectos">
+                    <h3>Aprendizaje Basado en Proyectos y Gamificación</h3>
+                    <button class="lupa-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="trend-card" data-modal="modal-connectivity">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Conectividad Global">
+                    <h3>Conectividad Global y Acceso al Conocimiento</h3>
+                    <button class="lupa-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="trend-card" data-modal="modal-neuroscience">
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Neurociencia">
+                    <h3>Neurociencia y Aprendizaje</h3>
+                    <button class="lupa-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales para las tendencias -->
+    <div class="modal" id="modal-ai">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-robot"></i> Inteligencia Artificial y Aprendizaje Adaptativo</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="IA en Educación" class="modal-image">
+                <p>La IA personaliza el aprendizaje, ajustando recursos y rutas al ritmo de cada estudiante, permitiendo al educador enfocarse en la facilitación.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-vr">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-vr-cardboard"></i> Realidad Virtual y Aumentada</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Realidad Virtual" class="modal-image">
+                <p>Estas tecnologías ofrecen experiencias inmersivas, facilitando la comprensión de conceptos complejos como anatomía o historia.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-pbl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-project-diagram"></i> Aprendizaje Basado en Proyectos y Gamificación</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="PBL y Gamificación" class="modal-image">
+                <p>Los estudiantes construyen y resuelven problemas reales, con gamificación que aumenta motivación y compromiso.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-connectivity">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-globe"></i> Conectividad Global y Acceso al Conocimiento</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Conectividad Global" class="modal-image">
+                <p>Internet democratiza el acceso a la información, transformando al educador en un guía de curación y aplicación.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-neuroscience">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-brain"></i> Neurociencia y Aprendizaje</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Neurociencia" class="modal-image">
+                <p>La neurociencia optimiza estrategias de enseñanza, mejorando la retención y desarrollo de habilidades cognitivas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2: Innovación Educativa con cartas giratorias -->
+    <section id="innovacion" style="background-color: #f0f7ff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovación Educativa y Emprendimiento en la Práctica</h2>
+            </div>
+            <div class="cards-container">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-img">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3>Clase Invertida</h3>
+                            <p>Haz clic para ver detalles</p>
+
+                            <div class="share-section">
+                                <a href="#" class="share-btn facebook"><i class="fas fa-sync-alt"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fas fa-video"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fas fa-chalkboard-teacher"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fas fa-users"></i></a>
+                            </div>
+
+                        </div>
+                        <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1581726707445-75cbe4efc586?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                            <h3>Escuelas "Flipped Classroom"</h3>
+                            <p>Estudiantes acceden a contenido teórico en casa y dedican el tiempo de clase a actividades prácticas, debates y resolución de problemas con el apoyo del docente.</p>
+                            <div class="impact">
+                                <strong>Impacto:</strong> Fomenta la autonomía y permite un aprendizaje más activo y colaborativo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-img">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <h3>Plataformas Personalizadas</h3>
+                            <p>Haz clic para ver detalles</p>
+
+                            <div class="share-section">
+                                <a href="#" class="share-btn facebook"><i class="fas fa-laptop-code"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fas fa-users-cog"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fas fa-file-alt"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fas fa-language"></i></a>
+                            </div>
+
+
+                        </div>
+                        <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1542621334-a254cf47733d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                            <h3>Plataformas de Aprendizaje Personalizado</h3>
+                            <p>Ofrecen cursos en línea, ejercicios interactivos y seguimiento del progreso, permitiendo a los estudiantes aprender a su propio ritmo.</p>
+                            <div class="impact">
+                                <strong>Impacto:</strong> Democratiza la educación y promueve el aprendizaje continuo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-img">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <h3>Proyectos STEAM</h3>
+                            <p>Haz clic para ver detalles</p>
+
+                            <div class="share-section">
+                                <a href="#" class="share-btn facebook"><i class="fas fa-atom"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fas fa-cogs"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fas fa-rocket"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fas fa-flask"></i></a>
+                            </div>
+
+                        </div>
+                        <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                            <h3>Proyectos STEAM con Enfoque Emprendedor</h3>
+                            <p>Estudiantes diseñan, prototipan y presentan soluciones innovadoras a problemas reales, aplicando conocimientos multidisciplinarios.</p>
+                            <div class="impact">
+                                <strong>Impacto:</strong> Desarrolla el pensamiento crítico, la creatividad, la resolución de problemas y habilidades emprendedoras.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-img">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h3>Makerspaces</h3>
+                            <p>Haz clic para ver detalles</p>
+
+                            <div class="share-section">
+                                <a href="#" class="share-btn facebook"><i class="fas fa-store"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fas fa-palette"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fas fa-project-diagram"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fas fa-briefcase"></i></a>
+                            </div>
+
+                        </div>
+                        <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                            <h3>Makerspaces en el Aula</h3>
+                            <p>Espacios equipados con herramientas y materiales para que los estudiantes construyan, diseñen y experimenten, fomentando la creatividad y el pensamiento práctico.</p>
+                            <div class="impact">
+                                <strong>Impacto:</strong> Promueve el aprendizaje experiencial y el desarrollo de habilidades técnicas y de diseño.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-img">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <h3>Emprendimiento</h3>
+                            <p>Ver detalles</p>
+
+                             <div class="share-section">
+                                <a href="#" class="share-btn facebook"><i class="far fa-lightbulb"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fas fa-palette"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fas fa-puzzle-piece"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fas fa-chart-line"></i></a>
+                            </div>
+
+                        </div>
+                        <div class="flip-card-back" style="--bg-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')">
+                            <h3>Proyecto "Aula Maker"</h3>
+                            <p>Aprendizaje basado en proyectos que fomenta creatividad y tecnología. Estudiantes crean soluciones tecnológicas para su comunidad utilizando materiales reciclados y tecnología de bajo costo.</p>
+                            <div class="impact">
+                                <strong>Logros:</strong> Sistema de riego automatizado con sensores y calentadores solares.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Adaptando la enseñanza -->
+    <section id="adaptacion">
+        <div class="container">
+            <div class="section-title">
+                <h2>Adaptando la Enseñanza para el Aprendizaje Personalizado y Permanente</h2>
+            </div>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Diagnóstico y Evaluación Continua</h3>
+                    <p>Utilizar herramientas digitales para identificar necesidades, intereses y estilos de aprendizaje.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Diseño de Rutas de Aprendizaje</h3>
+                    <p>Ofrecer diversas opciones de recursos y actividades para que los estudiantes elijan su camino.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Fomento de la Autorregulación</h3>
+                    <p>Enseñar a los estudiantes a establecer metas y monitorear su progreso.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Comunidades de Aprendizaje</h3>
+                    <p>Promover la colaboración entre estudiantes y el intercambio de conocimientos.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Actualización Constante</h3>
+                    <p>Integrar temas relevantes como ciudadanía digital y ética en el uso de tecnología.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="step-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Aprender a Aprender</h3>
+                    <p>Equipar a los estudiantes con habilidades para adquirir nuevos conocimientos a lo largo de la vida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Perfil docente con imagen y botones flotantes -->
+    <section id="perfil" class="profile-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>El Nuevo Perfil del Docente del Siglo XXI</h2>
+            </div>
+            <div class="profile-container">
+                <div class="teacher-container">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Docente innovador del siglo XXI" class="teacher-image">
+                    
+                    <div class="highlight-button" id="highlight-btn">
+                        <i class="fas fa-info"></i>
+                    </div>
+                    
+                    <!-- Botones latientes sobre la imagen -->
+                    <div class="skill-bubble bubble-1" data-modal="modal-digital">
+                        <i class="fas fa-laptop-code"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-2" data-modal="modal-liderazgo">
+                        <i class="fas fa-chart-line"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-3" data-modal="modal-etica">
+                        <i class="fas fa-balance-scale"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-4" data-modal="modal-actualizacion">
+                        <i class="fas fa-book"></i>
+                        <!--<span>Actualización</span>-->
+                    </div>
+                    <div class="skill-bubble bubble-5" data-modal="modal-creatividad">
+                        <i class="fas fa-lightbulb"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-6" data-modal="modal-empatia">
+                        <i class="fas fa-heart"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-7" data-modal="modal-colaboracion">
+                        <i class="fas fa-users"></i>
+                        
+                    </div>
+                    <div class="skill-bubble bubble-8" data-modal="modal-flexibilidad">
+                        <i class="fas fa-sync-alt"></i>
+                        <!--<span>Flexibilidad</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales para las burbujas de habilidades -->
+    <div class="modal" id="modal-digital">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-laptop-code"></i> Competencias Digitales</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>El docente moderno domina herramientas tecnológicas para crear experiencias de aprendizaje innovadoras:</p>
+                <ul>
+                    <li>Dominio de plataformas educativas digitales</li>
+                    <li>Creación de contenidos interactivos y multimedia</li>
+                    <li>Uso de herramientas de evaluación digital</li>
+                    <li>Gestión de entornos virtuales de aprendizaje</li>
+                    <li>Protección de datos y ciberseguridad</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-liderazgo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-line"></i> Liderazgo Pedagógico</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>El docente como líder inspirador y guía en el proceso de aprendizaje:</p>
+                <ul>
+                    <li>Capacidad para motivar e inspirar a los estudiantes</li>
+                    <li>Diseño de experiencias de aprendizaje significativas</li>
+                    <li>Promoción de ambientes inclusivos y equitativos</li>
+                    <li>Desarrollo de habilidades del siglo XXI</li>
+                    <li>Mentoría y acompañamiento personalizado</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-etica">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-balance-scale"></i> Ética Profesional</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Responsabilidad ética en la era digital:</p>
+                <ul>
+                    <li>Modelar comportamiento digital responsable</li>
+                    <li>Enseñar sobre huella digital y respeto en línea</li>
+                    <li>Prevención del ciberacoso</li>
+                    <li>Fomento de la empatía digital</li>
+                    <li>Reflexión sobre implicaciones éticas de la tecnología</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-actualizacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-book"></i> Actualización Constante</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>El docente se mantiene al día con las tendencias educativas y tecnológicas:</p>
+                <ul>
+                    <li>Participación en cursos y talleres de formación continua</li>
+                    <li>Exploración de nuevas metodologías pedagógicas</li>
+                    <li>Adopción de herramientas tecnológicas emergentes</li>
+                    <li>Investigación y aplicación de innovaciones educativas</li>
+                    <li>Colaboración con comunidades profesionales</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-creatividad">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-lightbulb"></i> Creatividad</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>El docente fomenta la creatividad para inspirar soluciones innovadoras:</p>
+                <ul>
+                    <li>Diseño de actividades que promueven el pensamiento divergente</li>
+                    <li>Uso de recursos multimedia para estimular la imaginación</li>
+                    <li>Fomento de proyectos interdisciplinarios</li>
+                    <li>Creación de entornos que inspiren innovación</li>
+                    <li>Apoyo a la experimentación y el aprendizaje por descubrimiento</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-empatia">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-heart"></i> Empatía</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>La empatía permite al docente conectar con sus estudiantes:</p>
+                <ul>
+                    <li>Comprensión de las necesidades y emociones de los estudiantes</li>
+                    <li>Creación de un ambiente de apoyo y confianza</li>
+                    <li>Escucha activa para resolver conflictos</li>
+                    <li>Promoción de la inclusión y diversidad</li>
+                    <li>Fomento de relaciones positivas en el aula</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-colaboracion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-users"></i> Colaboración</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>El docente promueve el trabajo en equipo y la colaboración:</p>
+                <ul>
+                    <li>Diseño de proyectos grupales interdisciplinarios</li>
+                    <li>Fomento de la comunicación efectiva entre estudiantes</li>
+                    <li>Creación de comunidades de aprendizaje</li>
+                    <li>Colaboración con otros docentes y profesionales</li>
+                    <li>Uso de herramientas digitales para trabajo colaborativo</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-flexibilidad">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-sync-alt"></i> Flexibilidad</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>La flexibilidad permite al docente adaptarse a contextos cambiantes:</p>
+                <ul>
+                    <li>Adaptación de estrategias pedagógicas a diferentes estilos de aprendizaje</li>
+                    <li>Respuesta rápida a cambios tecnológicos y sociales</li>
+                    <li>Gestión de entornos híbridos y virtuales</li>
+                    <li>Ajuste de planes de estudio según necesidades del aula</li>
+                    <li>Promoción de la resiliencia en los estudiantes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusión -->
+    <section id="conclusion" class="conclusion">
+        <div class="container">
+            <h2>Nuestro Rol en la Construcción del Futuro</h2>
+            <p>El educador del siglo XXI tiene la increíble responsabilidad de moldear a la próxima generación de ciudadanos. Al abrazar la tecnología, fomentar la innovación y comprometernos con el aprendizaje continuo, podemos empoderar a nuestros estudiantes para que sean individuos responsables, creativos y capaces de prosperar en un mundo en constante cambio.</p>
+            
+            <div class="reflection">
+                <h3>¿Están listos para asumir este desafío y ser los arquitectos del futuro?</h3>
+                <div class="reflection-options">
+                    <button class="reflection-btn">¡Absolutamente!</button>
+                    <button class="reflection-btn">En camino</button>
+                    <button class="reflection-btn">Necesito prepararme</button>
+                </div>
+            </div>
+            
+            <div class="share-section">
+                <a href="#" class="share-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/529842119971" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Nuevo Footer Profesional -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <h2>Educa-Tech</h2>
+                <p>Transformando la educación a través de la tecnología.<br>Comprometidos con la innovación educativa para un futuro más inclusivo y equitativo.</p>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#tendencias"><i class="fas fa-chart-line"></i> Tendencias</a></li>
+                        <li><a href="#innovacion"><i class="fas fa-lightbulb"></i> Innovación</a></li>
+                        <li><a href="#adaptacion"><i class="fas fa-cogs"></i> Adaptación</a></li>
+                        <li><a href="#perfil"><i class="fas fa-user-tie"></i> Perfil Docente</a></li>
+                        <li><a href="#conclusion"><i class="fas fa-graduation-cap"></i> Conclusión</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ue0204@unienigma.edu.mx</li>
+                        <li><i class="fas fa-phone"></i> +52 (984) 2II-9971</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Playa del Carmen, Q. Roo.</li>
+                        <li><i class="fas fa-user"></i> Autor: Héctor L. Pérez</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Educa-Tech. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú hamburguesa
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('show');
+        });
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Cerrar menú móvil después de hacer clic
+                if (window.innerWidth < 768) {
+                    document.getElementById('nav-menu').classList.remove('show');
+                }
+            });
+        });
+
+        // Acordeón para tendencias
+        //const accordionItems = document.querySelectorAll('.accordion-item');
+        //accordionItems.forEach(item => {
+          //  const header = item.querySelector('.accordion-header');
+            //header.addEventListener('click', () => {
+              //  item.classList.toggle('active');
+            //});
+        //});
+
+        
+        // Modales para tendencias (sección Tendencias)
+        const trendButtons = document.querySelectorAll('.lupa-btn');
+        const trendModals = document.querySelectorAll('.modal[id^="modal-"][id$="-ai"], [id$="-vr"], [id$="-pbl"], [id$="-connectivity"], [id$="-neuroscience"]');
+        const trendCloseButtons = document.querySelectorAll('.trend-close-modal');
+
+        trendButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = this.closest('.trend-card').getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'flex';
+                modal.querySelector('.modal-content').classList.remove('closing');
+            });
+        });
+
+        trendCloseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.classList.add('closing');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modalContent.classList.remove('closing');
+                }, 500);
+            });
+        });
+
+        trendModals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    const modalContent = this.querySelector('.modal-content');
+                    modalContent.classList.add('closing');
+                    setTimeout(() => {
+                        this.style.display = 'none';
+                        modalContent.classList.remove('closing');
+                    }, 500);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                [...skillModals, ...trendModals].forEach(modal => {
+                    if (modal.style.display === 'flex') {
+                        const modalContent = modal.querySelector('.modal-content');
+                        modalContent.classList.add('closing');
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            modalContent.classList.remove('closing');
+                        }, 500);
+                    }
+                });
+            }
+        });
+
+
+        // Modales para burbujas de habilidades
+        const bubbles = document.querySelectorAll('.skill-bubble');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        
+        bubbles.forEach(bubble => {
+            bubble.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'flex';
+                 // Asegurarse de que no haya animación de cierre residual
+                modal.querySelector('.modal-content').classList.remove('closing');
+                //document.getElementById(modalId).style.display = 'flex';
+            });
+        });
+        
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.classList.add('closing');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modalContent.classList.remove('closing');
+                }, 500); // Coincide con la duración de la animación (0.5s)
+            });
+        });
+        
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                     const modalContent = this.querySelector('.modal-content');
+                     modalContent.classList.add('closing');
+                    setTimeout(() => {
+                        this.style.display = 'none';
+                        modalContent.classList.remove('closing');
+                     }, 500); // Coincide con la duración de la animación (0.5s)
+                 }
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.style.display === 'flex') {
+                        const modalContent = modal.querySelector('.modal-content');
+                        modalContent.classList.add('closing');
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            modalContent.classList.remove('closing');
+                        }, 500); // Coincide con la duración de la animación (0.5s)
+                    }
+                });
+            }
+        });
+
+        // Botón de resaltar burbujas
+        document.getElementById('highlight-btn').addEventListener('click', function() {
+            bubbles.forEach(bubble => {
+                // Aplicar animación de resaltado
+                bubble.style.animation = 'highlight 1.5s ease';
+                
+                // Restablecer después de la animación
+                setTimeout(() => {
+                    bubble.style.animation = 'pulse 2s infinite';
+                }, 1500);
+            });
+        });
+
+        // Botones de reflexión
+        const reflectionBtns = document.querySelectorAll('.reflection-btn');
+        reflectionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('¡Gracias por tu compromiso con la educación del futuro!');
+            });
+        });
+
+        // Efecto de desplazamiento para secciones
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Carrusel de imágenes
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+
+            // Aplicar la imagen de fondo desde data-bg
+            const bgImage = slides[currentSlide].getAttribute('data-bg');
+            slides[currentSlide].style.backgroundImage = `url('${bgImage}')`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        // Iniciar carrusel automático
+        function startSlideShow() {
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        // Manejar clic en los puntos de paginación
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                showSlide(index);
+                startSlideShow();
+            });
+        });
+
+        // Verificar carga de imágenes
+        slides.forEach(slide => {
+            const bgImage = slide.getAttribute('data-bg');
+            const img = new Image();
+            img.src = bgImage;
+            img.onload = () => {
+                slide.style.backgroundImage = `url('${bgImage}')`;
+            };
+            img.onerror = () => {
+                console.warn(`No se pudo cargar la imagen: ${bgImage}`);
+                slide.style.backgroundImage = 'none'; // Usar color de respaldo
+            };
+        });
+
+        // Iniciar carrusel al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0); // Mostrar la primera diapositiva
+            startSlideShow();
+        });
+
+        // Configurar imágenes de fondo para las cartas traseras
+        document.querySelectorAll('.flip-card-back').forEach(card => {
+            const bgImage = card.style.getPropertyValue('--bg-image');
+            if (bgImage) {
+                card.style.backgroundImage = `linear-gradient(45deg, rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), ${bgImage}`;
+            }
+        });
+
+        // Iniciar todo al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar carrusel
+            startSlideShow();
+            
+            // Activar primer acordeón
+            //accordionItems[0].classList.add('active');
+            
+            // Animaciones al hacer scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.75) {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            // Inicializar animaciones para secciones
+            const sections = document.querySelectorAll('section:not(.hero-slider)');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            });
+        });
+    </script>
+
+    <script>
+    // Bloquear clic derecho
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // Bloquear teclas como F12, Ctrl+Shift+I, Ctrl+U
+    document.addEventListener('keydown', function (e) {
+        if (
+            e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+            (e.ctrlKey && e.key === 'U') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'C')
+        ) {
+            e.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>
